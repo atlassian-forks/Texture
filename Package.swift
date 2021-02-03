@@ -55,7 +55,7 @@ let package = Package(
             targets: ["AsyncDisplayKitIGListKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/3a4oT/PINRemoteImage.git", .branch("spmInXcode")),
+        .package(url: "https://github.com/atlassian-forks/PINRemoteImage", .branch("spm-support")),
         .package(url: "https://github.com/3a4oT/IGListKit", .branch("spmBrain")),
     ],
     targets: [
