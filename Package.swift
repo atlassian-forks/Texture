@@ -48,7 +48,7 @@ let package = Package(
             targets: ["AsyncDisplayKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pinterest/PINRemoteImage.git", .exact("3.0.3")),
+        .package(name: "PINRemoteImage", url: "git@bitbucket.org:atlassianmobile/pinremoteimage.git", .exact("3.0.3-maccatalyst-spm")),
     ],
     targets: [
         .target(
