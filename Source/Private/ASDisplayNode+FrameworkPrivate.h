@@ -13,8 +13,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AsyncDisplayKit/ASDisplayNode.h>
-#import <AsyncDisplayKit/ASObjectDescriptionHelpers.h>
+#import "ASDisplayNode.h"
+#import "ASObjectDescriptionHelpers.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -321,7 +321,7 @@ NS_INLINE UIAccessibilityTraits ASInteractiveAccessibilityTraitsMask() {
 }
 
 @interface ASDisplayNode (AccessibilityInternal)
-- (NSArray *)accessibilityElements;
+- (nullable NSArray *)accessibilityElements;
 @end;
 
 @interface UIView (ASDisplayNodeInternal)

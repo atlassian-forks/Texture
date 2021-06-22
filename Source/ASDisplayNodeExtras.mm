@@ -7,12 +7,12 @@
 //  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <AsyncDisplayKit/ASDisplayNodeExtras.h>
-#import <AsyncDisplayKit/ASDisplayNodeInternal.h>
-#import <AsyncDisplayKit/ASDisplayNode+Ancestry.h>
+#import "ASDisplayNodeExtras.h"
+#import "ASDisplayNodeInternal.h"
+#import "ASDisplayNode+Ancestry.h"
 
 #import <queue>
-#import <AsyncDisplayKit/ASRunLoopQueue.h>
+#import "ASRunLoopQueue.h"
 
 void ASPerformMainThreadDeallocation(id _Nullable __strong * _Nonnull objectPtr) {
   /**
@@ -65,7 +65,7 @@ ASInterfaceState ASInterfaceStateForDisplayNode(ASDisplayNode *displayNode, UIWi
         // if not already, about to be set to invisible as it is not possible for an element to be visible
         // while outside of a window.
         ASInterfaceState interfaceState = displayNode.pendingInterfaceState;
-        return (window == nil ? (interfaceState &= (~ASInterfaceStateVisible)) : interfaceState);
+        return (window == nil ? (interfaceState & (~ASInterfaceStateVisible)) : interfaceState);
     } else {
         // For not range managed nodes we might be on our own to try to guess if we're visible.
         return (window == nil ? ASInterfaceStateNone : (ASInterfaceStateVisible | ASInterfaceStateDisplay));

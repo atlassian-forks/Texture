@@ -7,13 +7,13 @@
 //  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <AsyncDisplayKit/ASBasicImageDownloader.h>
+#import "ASBasicImageDownloader.h"
 
 #import <objc/runtime.h>
 
-#import <AsyncDisplayKit/ASBasicImageDownloaderInternal.h>
-#import <AsyncDisplayKit/ASImageContainerProtocolCategories.h>
-#import <AsyncDisplayKit/ASThread.h>
+#import "ASBasicImageDownloaderInternal.h"
+#import "ASImageContainerProtocolCategories.h"
+#import "ASThread.h"
 
 using AS::MutexLocker;
 
@@ -253,11 +253,13 @@ static const void *ContextKey() {
 #pragma mark ASImageDownloaderProtocol.
 
 - (nullable id)downloadImageWithURL:(NSURL *)URL
+                        shouldRetry:(BOOL)shouldRetry
                       callbackQueue:(dispatch_queue_t)callbackQueue
                    downloadProgress:(nullable ASImageDownloaderProgress)downloadProgress
                          completion:(ASImageDownloaderCompletion)completion
 {
   return [self downloadImageWithURL:URL
+                        shouldRetry:shouldRetry
                            priority:ASImageDownloaderPriorityImminent // maps to default priority
                       callbackQueue:callbackQueue
                    downloadProgress:downloadProgress
@@ -265,6 +267,7 @@ static const void *ContextKey() {
 }
 
 - (nullable id)downloadImageWithURL:(NSURL *)URL
+                        shouldRetry:(BOOL)shouldRetry
                            priority:(ASImageDownloaderPriority)priority
                       callbackQueue:(dispatch_queue_t)callbackQueue
                    downloadProgress:(ASImageDownloaderProgress)downloadProgress

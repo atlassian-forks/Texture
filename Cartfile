@@ -1,2 +1,2 @@
 git "git@bitbucket.org:atlassianmobile/pinremoteimage.git" "3.0.3-maccatalyst-spm"
-github "pinterest/PINCache"
+github "pinterest/PINCache" "3.0.3"

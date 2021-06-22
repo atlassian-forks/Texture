@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AsyncDisplayKit/ASAvailability.h>
-#import <AsyncDisplayKit/ASBaseDefines.h>
+#import "ASAvailability.h"
+#import "ASBaseDefines.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -28,6 +28,8 @@ typedef NS_OPTIONS(NSUInteger, ASExperimentalFeatures) {
   ASExperimentalDispatchApply = 1 << 7,                                     // exp_dispatch_apply
   ASExperimentalDrawingGlobal = 1 << 8,                                     // exp_drawing_global
   ASExperimentalOptimizeDataControllerPipeline = 1 << 9,                    // exp_optimize_data_controller_pipeline
+  ASExperimentalDisableGlobalTextkitLock = 1 << 10,                         // exp_disable_global_textkit_lock
+  ASExperimentalMainThreadOnlyDataController = 1 << 11,                     // exp_main_thread_only_data_controller
   ASExperimentalFeatureAll = 0xFFFFFFFF
 };
 

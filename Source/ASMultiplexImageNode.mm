@@ -7,28 +7,28 @@
 //  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <AsyncDisplayKit/ASMultiplexImageNode.h>
+#import "ASMultiplexImageNode.h"
 
 #if TARGET_OS_IOS && AS_USE_ASSETS_LIBRARY
 #import <AssetsLibrary/AssetsLibrary.h>
 #endif
 
-#import <AsyncDisplayKit/ASDisplayNodeExtras.h>
-#import <AsyncDisplayKit/ASDisplayNode+Subclasses.h>
-#import <AsyncDisplayKit/ASDisplayNode+FrameworkPrivate.h>
-#import <AsyncDisplayKit/ASEqualityHelpers.h>
-#import <AsyncDisplayKit/ASInternalHelpers.h>
-#import <AsyncDisplayKit/ASLog.h>
-#import <AsyncDisplayKit/ASThread.h>
+#import "ASDisplayNodeExtras.h"
+#import "ASDisplayNode+Subclasses.h"
+#import "ASDisplayNode+FrameworkPrivate.h"
+#import "ASEqualityHelpers.h"
+#import "ASInternalHelpers.h"
+#import "ASLog.h"
+#import "ASThread.h"
 
 #if AS_USE_PHOTOS
-#import <AsyncDisplayKit/ASPhotosFrameworkImageRequest.h>
+#import "ASPhotosFrameworkImageRequest.h"
 #endif
 
 #if AS_PIN_REMOTE_IMAGE
-#import <AsyncDisplayKit/ASPINRemoteImageDownloader.h>
+#import "ASPINRemoteImageDownloader.h"
 #else
-#import <AsyncDisplayKit/ASBasicImageDownloader.h>
+#import "ASBasicImageDownloader.h"
 #endif
 
 using AS::MutexLocker;
@@ -176,13 +176,14 @@ typedef void(^ASMultiplexImageLoadCompletionBlock)(UIImage *image, id imageIdent
   
   _downloaderFlags.downloaderImplementsSetProgress = [downloader respondsToSelector:@selector(setProgressImageBlock:callbackQueue:withDownloadIdentifier:)];
   _downloaderFlags.downloaderImplementsSetPriority = [downloader respondsToSelector:@selector(setPriority:withDownloadIdentifier:)];
-  _downloaderFlags.downloaderImplementsDownloadWithPriority = [downloader respondsToSelector:@selector(downloadImageWithURL:priority:callbackQueue:downloadProgress:completion:)];
+  _downloaderFlags.downloaderImplementsDownloadWithPriority = [downloader respondsToSelector:@selector(downloadImageWithURL:shouldRetry:priority:callbackQueue:downloadProgress:completion:)];
 
   _cacheSupportsClearing = [cache respondsToSelector:@selector(clearFetchedImageFromCacheWithURL:)];
   
   _shouldRenderProgressImages = YES;
 
   self.shouldBypassEnsureDisplay = YES;
+  self.shouldRetryImageDownload = YES;
 
   return self;
 }
@@ -862,6 +863,7 @@ typedef void(^ASMultiplexImageLoadCompletionBlock)(UIImage *image, id imageIdent
        */
       ASImageDownloaderPriority priority = ASImageDownloaderPriorityWithInterfaceState(strongSelf.interfaceState);
       downloadIdentifier = [strongSelf->_downloader downloadImageWithURL:imageURL
+                                                             shouldRetry:[self shouldRetryImageDownload]
                                                                 priority:priority
                                                            callbackQueue:callbackQueue
                                                         downloadProgress:downloadProgressBlock
@@ -877,6 +879,7 @@ typedef void(^ASMultiplexImageLoadCompletionBlock)(UIImage *image, id imageIdent
         and their requests are put into the same pool.
        */
       downloadIdentifier = [strongSelf->_downloader downloadImageWithURL:imageURL
+                                                             shouldRetry:[self shouldRetryImageDownload]
                                                            callbackQueue:callbackQueue
                                                         downloadProgress:downloadProgressBlock
                                                               completion:completion];

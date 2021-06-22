@@ -8,10 +8,10 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AsyncDisplayKit/ASBaseDefines.h>
+#import "ASBaseDefines.h"
 
 /**
- * Like dispatch_apply, but you can set the thread count. 0 means 2*active CPUs.
+ * Like dispatch_apply, but you can set the thread count. 0 means letting dispatch_apply determine it.
  *
  * Note: The actual number of threads may be lower than threadCount, if libdispatch
  * decides the system can't handle it. In reality this rarely happens.

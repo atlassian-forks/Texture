@@ -7,8 +7,8 @@
 //  Licensed under Apache 2.0: http://www.apache.org/licenses/LICENSE-2.0
 //
 
-#import <AsyncDisplayKit/ASImageNode.h>
-#import <AsyncDisplayKit/ASImageProtocols.h>
+#import "ASImageNode.h"
+#import "ASImageProtocols.h"
 
 #if AS_USE_PHOTOS
 #import <Photos/Photos.h>
@@ -129,6 +129,12 @@ typedef NS_ENUM(NSUInteger, ASMultiplexImageNodeErrorCode) {
  * only occur when the node is visible. Defaults to YES.
  */
 @property (nonatomic) BOOL shouldRenderProgressImages;
+
+/**
+ * Specifies whether the underlying image downloader should attempt to retry downloading the image if the remote
+ * host is unreachable. It will have no effect if the downloader does not support retrying. The default is YES.
+ */
+@property BOOL shouldRetryImageDownload;
 
 /**
  * @abstract The image manager that this image node should use when requesting images from the Photos framework. If this is `nil` (the default), then `PHImageManager.defaultManager` is used.
