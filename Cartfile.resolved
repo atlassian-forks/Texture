@@ -1,4 +1,4 @@
-git "git@bitbucket.org:atlassianmobile/pinremoteimage.git" "3.0.3-maccatalyst-spm"
+git "git@bitbucket.org:atlassianmobile/pinremoteimage.git" "3.0.3-spm"
 git "https://chromium.googlesource.com/webm/libwebp" "v1.1.0"
 github "pinterest/PINCache" "3.0.3"
 github "pinterest/PINOperation" "1.2.1"
